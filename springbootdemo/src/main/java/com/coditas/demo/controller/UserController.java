@@ -16,7 +16,7 @@ public class UserController {
 
 	@Autowired
 	UserProjectService userProjectService;
-
+	
 	@GetMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Project> getUserProjects(@RequestParam("userName") String userName) {
 		return userProjectService.fetchUserProjects(userName);

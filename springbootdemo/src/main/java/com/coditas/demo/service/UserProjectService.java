@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,11 +24,19 @@ public class UserProjectService {
 	@Autowired
 	RestTemplate restTemplate;
 	ObjectMapper mapper = new ObjectMapper();
-	private final String accessToken = "-KkByKHCxbJHVSp-scrH";
+
+	@Value("#{'${url}'.split(',')}")
+	private List<String> url;
+
+	@Value("${accesstoken}")
+	private String accessToken1;
+
 	final String githubProjectURI = "https://api.github.com/search/repositories?q=username";
 	final String gitlabProjectURI = "https://gitlab.com/api/v4/users/username/projects";
+	private String accessToken = "-KkByKHCxbJHVSp-scrH";
 
 	public List<Project> fetchUserProjects(String userName) {
+
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
